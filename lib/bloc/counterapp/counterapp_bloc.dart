@@ -6,7 +6,7 @@ part 'counterapp_event.dart';
 part 'counterapp_state.dart';
 
 class CounterappBloc extends Bloc<CounterappEvent, CounterappState> {
-  CounterappBloc() : super(CounterappState()) {
+  CounterappBloc() : super(const CounterappState()) {
     on<UpdateCounter>(_updateCounter);
   }
 

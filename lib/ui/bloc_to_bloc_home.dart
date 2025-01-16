@@ -15,7 +15,7 @@ class _CounterappHomeState extends State<BlocToBlocHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("BLoC to BLoC "),
+        title: const Text("BLoC to BLoC "),
       ),
       body: BlocListener<ColorBloc, ColorState>(
         listener: (context, state) {
@@ -33,7 +33,7 @@ class _CounterappHomeState extends State<BlocToBlocHome> {
                 builder: (context, state) {
                   return Text(
                     state.counter.toString(),
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                         color: Colors.pink),
@@ -51,7 +51,7 @@ class _CounterappHomeState extends State<BlocToBlocHome> {
             onPressed: () {
               context.read<ColorBloc>().add(ChangeColor(color: Colors.green));
             },
-            child: Text(
+            child: const Text(
               "Green",
               style: TextStyle(color: Colors.green),
             ),
@@ -60,13 +60,13 @@ class _CounterappHomeState extends State<BlocToBlocHome> {
             onPressed: () {
               context.read<ColorBloc>().add(ChangeColor(color: Colors.blue));
             },
-            child: Text("Blue", style: TextStyle(color: Colors.blue)),
+            child: const Text("Blue", style: TextStyle(color: Colors.blue)),
           ),
           ElevatedButton(
             onPressed: () {
               context.read<ColorBloc>().add(ChangeColor(color: Colors.red));
             },
-            child: Text(
+            child: const Text(
               "Red",
               style: TextStyle(color: Colors.red),
             ),
@@ -75,7 +75,7 @@ class _CounterappHomeState extends State<BlocToBlocHome> {
             onPressed: () {
               context.read<ColorBloc>().add(ChangeColor(color: Colors.black));
             },
-            child: Text(
+            child: const Text(
               "Black",
               style: TextStyle(color: Colors.black),
             ),

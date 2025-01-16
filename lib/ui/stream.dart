@@ -15,6 +15,7 @@ class StreamPage extends StatefulWidget {
 class _StreamState extends State<StreamPage> {
   StreamSubscription<ColorState>? _streamSubscription;
 
+  @override
   void initState() {
     super.initState();
     _streamSubscription = context.read<ColorBloc>().stream.listen(
@@ -36,7 +37,7 @@ class _StreamState extends State<StreamPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Bloc using StreamSubscription"),
+        title: const Text("Bloc using StreamSubscription"),
       ),
       body: BlocBuilder<ColorBloc, ColorState>(
         builder: (context, state) {
@@ -48,7 +49,7 @@ class _StreamState extends State<StreamPage> {
               builder: (context, state) {
                 return Text(
                   state.counter.toString(),
-                  style: TextStyle(fontSize: 30, color: Colors.pink),
+                  style: const TextStyle(fontSize: 30, color: Colors.pink),
                 );
               },
             )),
@@ -62,7 +63,7 @@ class _StreamState extends State<StreamPage> {
             onPressed: () {
               context.read<ColorBloc>().add(ChangeColor(color: Colors.green));
             },
-            child: Text(
+            child: const Text(
               "Green",
               style: TextStyle(color: Colors.green),
             ),
@@ -71,13 +72,13 @@ class _StreamState extends State<StreamPage> {
             onPressed: () {
               context.read<ColorBloc>().add(ChangeColor(color: Colors.blue));
             },
-            child: Text("Blue", style: TextStyle(color: Colors.blue)),
+            child: const Text("Blue", style: TextStyle(color: Colors.blue)),
           ),
           ElevatedButton(
             onPressed: () {
               context.read<ColorBloc>().add(ChangeColor(color: Colors.red));
             },
-            child: Text(
+            child: const Text(
               "Red",
               style: TextStyle(color: Colors.red),
             ),
@@ -86,7 +87,7 @@ class _StreamState extends State<StreamPage> {
             onPressed: () {
               context.read<ColorBloc>().add(ChangeColor(color: Colors.black));
             },
-            child: Text(
+            child: const Text(
               "Black",
               style: TextStyle(color: Colors.black),
             ),
