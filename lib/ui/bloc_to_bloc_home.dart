@@ -31,6 +31,12 @@ class _CounterappHomeState extends State<BlocToBlocHome> {
             child: Center(
               child: BlocBuilder<CounterappBloc, CounterappState>(
                 builder: (context, state) {
+                  if (state.errorMsg.isNotEmpty) {
+                    return Text(
+                      state.errorMsg.toString(),
+                      style: TextStyle(fontSize: 25, color: Colors.pink),
+                    );
+                  }
                   return Text(
                     state.counter.toString(),
                     style: const TextStyle(
