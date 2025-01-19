@@ -6,7 +6,7 @@ part 'color_event.dart';
 part 'color_state.dart';
 
 class ColorBloc extends Bloc<ColorEvent, ColorState> {
-  ColorBloc() : super(ColorState()) {
+  ColorBloc() : super(ColorState(errorMsg: '')) {
     on<ChangeColor>(_changeColor);
   }
   void _changeColor(ChangeColor event, Emitter<ColorState> emit) {

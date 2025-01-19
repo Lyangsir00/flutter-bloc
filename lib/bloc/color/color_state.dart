@@ -5,7 +5,7 @@ class ColorState extends Equatable {
   final String errorMsg;
   const ColorState({
     this.color = Colors.white,
-    this.errorMsg = '',
+    required this.errorMsg,
   });
   ColorState copyWith({Color? color, String? errorMsg}) {
     return ColorState(
