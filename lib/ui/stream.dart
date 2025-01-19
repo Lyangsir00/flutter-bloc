@@ -1,54 +1,60 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_example2/bloc/counterapp/counterapp_bloc.dart';
 import 'package:flutter_bloc_example2/bloc/color/color_bloc.dart';
+import 'package:flutter_bloc_example2/bloc/counterapp/counterapp_bloc.dart';
 
-class BlocToBlocHome extends StatefulWidget {
-  const BlocToBlocHome({super.key});
+class StreamPage extends StatefulWidget {
+  const StreamPage({super.key});
 
   @override
-  State<BlocToBlocHome> createState() => _CounterappHomeState();
+  State<StreamPage> createState() => _StreamState();
 }
 
-class _CounterappHomeState extends State<BlocToBlocHome> {
+class _StreamState extends State<StreamPage> {
+  StreamSubscription<ColorState>? _streamSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    _streamSubscription = context.read<ColorBloc>().stream.listen(
+      (state) {
+        context.read<CounterappBloc>().add(
+              UpdateCounter(color: state.color),
+            );
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _streamSubscription?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("BLoC to BLoC "),
+        title: const Text("Bloc using StreamSubscription"),
       ),
-      body: BlocListener<ColorBloc, ColorState>(
-        listener: (context, state) {
-          context.read<CounterappBloc>().add(
-                UpdateCounter(color: state.color),
-              );
-        },
-        child: BlocBuilder<ColorBloc, ColorState>(builder: (context, state) {
+      body: BlocBuilder<ColorBloc, ColorState>(
+        builder: (context, state) {
           return Container(
             height: 200,
             width: double.infinity,
             color: state.color,
-            child: Center(
-              child: BlocBuilder<CounterappBloc, CounterappState>(
-                builder: (context, state) {
-                  if (state.errorMsg.isNotEmpty) {
-                    return Text(
-                      state.errorMsg.toString(),
-                      style: TextStyle(fontSize: 25, color: Colors.pink),
-                    );
-                  }
-                  return Text(
-                    state.counter.toString(),
-                    style: const TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.pink),
-                  );
-                },
-              ),
-            ),
+            child: Center(child: BlocBuilder<CounterappBloc, CounterappState>(
+              builder: (context, state) {
+                return Text(
+                  state.counter.toString(),
+                  style: const TextStyle(fontSize: 30, color: Colors.pink),
+                );
+              },
+            )),
           );
-        }),
+        },
       ),
       bottomNavigationBar: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
